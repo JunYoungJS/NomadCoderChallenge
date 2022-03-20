@@ -38,6 +38,7 @@ const loginButtonHandler=(e)=>{
     const username=document.getElementById('username').value
     const pwd=document.getElementById('pwd').value
 
+    // 3.1 로컬스토리지에 해당 username과 pwd가 존재하면 toDOList 폼을 보여줌  
     if(localStorage.getItem(`${username}`) && localStorage.getItem(`${pwd}`)){
         alert('회원입니다. 어서오세요')
         loginform.style.display="none";
@@ -55,13 +56,17 @@ const loginButtonHandler=(e)=>{
 
 }
 
-// 4. toDoList 기능 구현 
-const todoListHandler=(e)=>{
+// 4. toDoList ADD REMOVE 기능 구현 
+const todoListAddRemoveHandler=(e)=>{
     const parent=e.target.parentNode
     const value=e.target
+
+
+    // 4.2  toDOList삭제기능 
     if(value.innerText==='delete'){
         console.log(1234)
     }
+    // 4.1 toDOList 체크기능 
     else if(value.innerText==='check_circle'){
         if(value.style.color=='green'){
             value.style.color='black'
@@ -77,5 +82,5 @@ const todoListHandler=(e)=>{
 
 
 
-todoContentList.addEventListener('click',todoListHandler)
+todoContentList.addEventListener('click',todoListAddRemoveHandler)
 loginform.addEventListener('submit',loginButtonHandler)
