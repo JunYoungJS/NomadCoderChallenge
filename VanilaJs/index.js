@@ -26,7 +26,6 @@ const showCurrentClockHandler=()=>{
     const date=new Date()
     const currentHour=date.getHours().toString().padStart(2,"0")
     const currentMinute=date.getMinutes().toString().padStart(2,"0")
-
     const currentSecond=date.getSeconds().toString().padStart(2,"0")
 
 
@@ -91,14 +90,19 @@ const toDoListSubmitHandler=(e)=>{
     e.preventDefault();
     
     const TodoValue=e.target.children[0].value
-    toDoListAddHandler(TodoValue)
+    toDoListViewHandler(TodoValue)
     e.target.children[0].value=""
-    // 로컬스토리지에 toDo 저장 
-    savetoDoList(TodoValue)
+ 
+    const TodoValueObj={
+        id:Date.now(),
+        text:TodoValue,
+        check:false
+    }
+    savetoDoList(TodoValueObj)
     alert('할일이 추가 되었습니다.')
 }
-
-const toDoListAddHandler=(TodoValue)=>{
+// 5.1 toDoList를 화면에 뿌려주는 함수 
+const toDoListViewHandler=(TodoValue)=>{
     const li=document.createElement('li')
     const checkspan=document.createElement('span')
     const deletespan=document.createElement('span')
@@ -113,18 +117,17 @@ const toDoListAddHandler=(TodoValue)=>{
     todoContentList.appendChild(li)
 }
 
-// 6.localstorage에 데이터를 저장하기위해 사용되는 함수
-const savetoDoList=(TodoValue)=>{
-    mytoDoList.push(TodoValue)
+// 6.해당 유저의 toDoList를  저장하기위해 사용되는 함수
+const savetoDoList=(TodoObjValue)=>{
+    mytoDoList.push(TodoObjValue)
     localStorage.setItem(MY_LOCALKEY,JSON.stringify(mytoDoList))
 }
 
-// 7. localstorage에 있는 데이터를 가져오기 위한 함수
+// 7. 해당 유저의 toDoList 데이터를 가져오기 위한 함수
 const loadtoDoList=()=>{
     mytoDoList=JSON.parse(localStorage.getItem(`${MY_LOCALKEY}`)) 
-    mytoDoList.map((e)=>toDoListAddHandler(e)) 
+    mytoDoList.map((e)=>toDoListViewHandler(e)) 
     // 로컬스토리지에있는값을 todoList에 뿌려줌 
-
 }
 
 // 8.localstorage에 있는 데이터를 삭제하기 위한 함수
