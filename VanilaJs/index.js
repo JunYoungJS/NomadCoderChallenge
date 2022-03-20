@@ -8,7 +8,7 @@ const todoContentList=document.querySelector('#todo-content')
 const todoListAdd=document.querySelector('#todo-list form')
 
 
-const mytoDoList=[]
+let mytoDoList=[]
 let MY_LOCALKEY=0
 
 // 1.5초마다 배경화면이 바뀜
@@ -91,10 +91,17 @@ const toDoListSubmitHandler=(e)=>{
     e.preventDefault();
     
     const TodoValue=e.target.children[0].value
+    toDoListAddHandler(TodoValue)
+    e.target.children[0].value=""
+    // 로컬스토리지에 toDo 저장 
+    savetoDoList(TodoValue)
+    alert('할일이 추가 되었습니다.')
+}
+
+const toDoListAddHandler=(TodoValue)=>{
     const li=document.createElement('li')
     const checkspan=document.createElement('span')
     const deletespan=document.createElement('span')
-
     checkspan.setAttribute('class','material-icons-outlined check-list')
     checkspan.innerText='check_circle'
     deletespan.setAttribute('class','material-icons-outlined remove-list')
@@ -104,16 +111,6 @@ const toDoListSubmitHandler=(e)=>{
     li.appendChild(checkspan)
     li.appendChild(deletespan)    
     todoContentList.appendChild(li)
-    
-    e.target.children[0].value=""
-    // 로컬스토리지에 toDo 저장 
-    savetoDoList(TodoValue)
-
-    alert('할일이 추가 되었습니다.')
-}
-
-const todoListAddHandler=()=>{
-    
 }
 
 // 6.localstorage에 데이터를 저장하기위해 사용되는 함수
@@ -124,7 +121,8 @@ const savetoDoList=(TodoValue)=>{
 
 // 7. localstorage에 있는 데이터를 가져오기 위한 함수
 const loadtoDoList=()=>{
-    console.log(JSON.parse(localStorage.getItem(`${MY_LOCALKEY}`)))
+    
+    mytoDoList=JSON.parse(localStorage.getItem(`${MY_LOCALKEY}`)) 
 
 }
 
