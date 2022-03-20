@@ -6,18 +6,18 @@ const todoListform=document.getElementById('todo-form')
 const todoListformMember=document.querySelector('#todo-form h1')
 const todoContentList=document.querySelector('#todo-content')
 
-
-const changeBackGround=()=>{
+// 1.5초마다 배경화면이 바뀜
+const changeBackGroundHandler=()=>{
     const bgImgNumber=Math.floor(Math.random() * backgroundList.length);
     const bgImg=`url(${backgroundList[bgImgNumber]})`
     bg.style.backgroundImage=bgImg;
 }
-setInterval(changeBackGround,5000) 
-// // 5초마다 배경화면이 바뀜
+setInterval(changeBackGroundHandler,5000) 
+
 
 
 // 2. 실시간 시계
-const showCurrentClock=()=>{
+const showCurrentClockHandler=()=>{
     const date=new Date()
     const currentHour=date.getHours().toString().padStart(2,"0")
     const currentMinute=date.getMinutes().toString().padStart(2,"0")
@@ -27,12 +27,12 @@ const showCurrentClock=()=>{
 
     clocktitle.innerHTML=`${currentHour}시 ${currentMinute}분 ${currentSecond}초`
 }
-setInterval(showCurrentClock,1000)
+setInterval(showCurrentClockHandler,1000)
 
 
 // 3. 로그인 부분 구현 (로컬스토리지 사용 )
 
-const loginbtnClick=(e)=>{
+const loginButtonHandler=(e)=>{
     e.preventDefault();
 
     const username=document.getElementById('username').value
@@ -54,6 +54,8 @@ const loginbtnClick=(e)=>{
     }
 
 }
+
+// 4. toDoList 기능 구현 
 const todoListHandler=(e)=>{
     const parent=e.target.parentNode
     const value=e.target
@@ -76,4 +78,4 @@ const todoListHandler=(e)=>{
 
 
 todoContentList.addEventListener('click',todoListHandler)
-loginform.addEventListener('submit',loginbtnClick)
+loginform.addEventListener('submit',loginButtonHandler)
