@@ -5,6 +5,7 @@ const loginform=document.querySelector('#login-form')
 const todoListform=document.getElementById('todo-form')
 const todoListformMember=document.querySelector('#todo-form h1')
 const todoContentList=document.querySelector('#todo-content')
+const todoListAdd=document.querySelector('#todo-list form')
 
 // 1.5초마다 배경화면이 바뀜
 const changeBackGroundHandler=()=>{
@@ -56,8 +57,8 @@ const loginButtonHandler=(e)=>{
 
 }
 
-// 4. toDoList ADD REMOVE 기능 구현 
-const todoListAddRemoveHandler=(e)=>{
+// 4. toDoList Check REMOVE 기능 구현 
+const toDoListCheckRemoveHandler=(e)=>{
     const parent=e.target.parentNode
     const value=e.target
 
@@ -81,6 +82,33 @@ const todoListAddRemoveHandler=(e)=>{
 }
 
 
+// 5. toDOLIst 내용추가 
+const toDoListAddHandler=(e)=>{
+    e.preventDefault();
+    
+    const TodoValue=e.target.children[0].value
+    const li=document.createElement('li')
+    const checkspan=document.createElement('span')
+    const deletespan=document.createElement('span')
 
-todoContentList.addEventListener('click',todoListAddRemoveHandler)
+    checkspan.setAttribute('class','material-icons-outlined check-list')
+    checkspan.innerText='check_circle'
+    deletespan.setAttribute('class','material-icons-outlined remove-list')
+    deletespan.innerText='delete'
+
+    li.setAttribute('class','list')
+    li.innerText=TodoValue
+    
+
+    li.appendChild(checkspan)
+    li.appendChild(deletespan)    
+    
+    todoContentList.appendChild(li)
+
+    alert('할일이 추가 되었습니다.')
+    
+}
+
+todoListAdd.addEventListener('submit',toDoListAddHandler)
+todoContentList.addEventListener('click',toDoListCheckRemoveHandler)
 loginform.addEventListener('submit',loginButtonHandler)
