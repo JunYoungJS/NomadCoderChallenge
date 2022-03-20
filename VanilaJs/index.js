@@ -54,6 +54,25 @@ const loginbtnClick=(e)=>{
     }
 
 }
+const todoListHandler=(e)=>{
+    const parent=e.target.parentNode
+    const value=e.target
+    if(value.innerText==='delete'){
+        console.log(1234)
+    }
+    else if(value.innerText==='check_circle'){
+        if(value.style.color=='green'){
+            value.style.color='black'
+            parent.style.textDecoration='none'
+        
+        }
+        else{
+        value.style.color='green'
+        parent.style.textDecoration='line-through'
+        }
+    }
+}
+
 
 
 todoContentList.addEventListener('click',todoListHandler)
