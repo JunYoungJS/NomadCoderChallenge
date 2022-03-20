@@ -59,24 +59,25 @@ const loginButtonHandler=(e)=>{
 
 // 4. toDoList Check REMOVE 기능 구현 
 const toDoListCheckRemoveHandler=(e)=>{
-    const parent=e.target.parentNode
-    const value=e.target
+    const todoNodevalue=e.target.parentNode
+    const checkNodevalue=e.target
 
-
+    
     // 4.2  toDOList삭제기능 
-    if(value.innerText==='delete'){
-        console.log(1234)
+    if(checkNodevalue.innerText==='delete'){
+        todoNodevalue.remove()
+        alert('삭제되었습니다.')
     }
     // 4.1 toDOList 체크기능 
-    else if(value.innerText==='check_circle'){
-        if(value.style.color=='green'){
-            value.style.color='black'
-            parent.style.textDecoration='none'
+    else if(checkNodevalue.innerText==='check_circle'){
+        if(checkNodevalue.style.color=='green'){
+            checkNodevalue.style.color='black'
+            todoNodevalue.style.textDecoration='none'
         
         }
         else{
-        value.style.color='green'
-        parent.style.textDecoration='line-through'
+        checkNodevalue.style.color='green'
+        todoNodevalue.style.textDecoration='line-through'
         }
     }
 }
@@ -95,11 +96,9 @@ const toDoListAddHandler=(e)=>{
     checkspan.innerText='check_circle'
     deletespan.setAttribute('class','material-icons-outlined remove-list')
     deletespan.innerText='delete'
-
     li.setAttribute('class','list')
     li.innerText=TodoValue
     
-
     li.appendChild(checkspan)
     li.appendChild(deletespan)    
     
