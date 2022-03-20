@@ -49,6 +49,7 @@ const loginButtonHandler=(e)=>{
         loginform.style.display="none";
         todoListform.style.display="block"
         todoListformMember.innerHTML=`${username}님의 할일`
+        loadtoDoList()
     }
     else{
         localStorage.setItem(`${username}`,`${mytoDoList}`)
@@ -57,8 +58,6 @@ const loginButtonHandler=(e)=>{
         todoListform.style.display="block"
         todoListformMember.innerHTML=`${username}님의 할일`
     }
-
-
 }
 
 // 4. toDoList Check REMOVE 기능 구현 
@@ -88,7 +87,7 @@ const toDoListCheckRemoveHandler=(e)=>{
 
 
 // 5. toDOLIst 내용추가 
-const toDoListAddHandler=(e)=>{
+const toDoListSubmitHandler=(e)=>{
     e.preventDefault();
     
     const TodoValue=e.target.children[0].value
@@ -113,6 +112,9 @@ const toDoListAddHandler=(e)=>{
     alert('할일이 추가 되었습니다.')
 }
 
+const todoListAddHandler=()=>{
+    
+}
 
 // 6.localstorage에 데이터를 저장하기위해 사용되는 함수
 const savetoDoList=(TodoValue)=>{
@@ -122,6 +124,7 @@ const savetoDoList=(TodoValue)=>{
 
 // 7. localstorage에 있는 데이터를 가져오기 위한 함수
 const loadtoDoList=()=>{
+    console.log(JSON.parse(localStorage.getItem(`${MY_LOCALKEY}`)))
 
 }
 
@@ -130,6 +133,6 @@ const deletetoDOList=()=>{
 
 }
 
-todoListAdd.addEventListener('submit',toDoListAddHandler)
+todoListAdd.addEventListener('submit',toDoListSubmitHandler)
 todoContentList.addEventListener('click',toDoListCheckRemoveHandler)
 loginform.addEventListener('submit',loginButtonHandler)
