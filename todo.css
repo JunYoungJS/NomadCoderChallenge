@@ -1,0 +1,58 @@
+#todo-form {
+  border: 1px solid black;
+  width: 400;
+  background-color: aliceblue;
+  display: none;
+}
+#todo-form h1 {
+  text-align: center;
+}
+#todo-form input {
+  width: 82%;
+  height: 40px;
+  font-size: 20px;
+  margin-left: 10;
+}
+#todo-form li {
+  border-bottom: 1px solid grey;
+  list-style: none;
+  padding: 10px;
+}
+
+#btn-add {
+  height: 30;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+#todo-content .list {
+  margin: 20;
+}
+.check-list {
+  float: right;
+}
+.remove-list {
+  float: right;
+}
+
+#checked {
+  color: green;
+}
+#unchecked {
+  color: black;
+}
+
+#todo-content .list.unchecked {
+  text-decoration: none;
+}
+#todo-content .list.checked {
+  text-decoration: line-through;
+}
+
+#weather-form {
+  font-size: 30px;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-weight: bold;
+  color: white;
+  margin: 40px;
+}
