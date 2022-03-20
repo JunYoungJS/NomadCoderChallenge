@@ -7,6 +7,10 @@ const todoListformMember=document.querySelector('#todo-form h1')
 const todoContentList=document.querySelector('#todo-content')
 const todoListAdd=document.querySelector('#todo-list form')
 
+
+const mytoDoList=[]
+let MY_LOCALKEY=0
+
 // 1.5초마다 배경화면이 바뀜
 const changeBackGroundHandler=()=>{
     const bgImgNumber=Math.floor(Math.random() * backgroundList.length);
@@ -37,23 +41,23 @@ const loginButtonHandler=(e)=>{
     e.preventDefault();
 
     const username=document.getElementById('username').value
-    const pwd=document.getElementById('pwd').value
+    MY_LOCALKEY=username
 
     // 3.1 로컬스토리지에 해당 username과 pwd가 존재하면 toDOList 폼을 보여줌  
-    if(localStorage.getItem(`${username}`) && localStorage.getItem(`${pwd}`)){
-        alert('회원입니다. 어서오세요')
+    if(localStorage.getItem(`${username}`)){
+        alert(`${username}님 어서오세요`)
         loginform.style.display="none";
         todoListform.style.display="block"
         todoListformMember.innerHTML=`${username}님의 할일`
     }
     else{
-        localStorage.setItem(`${username}`,pwd)
+        localStorage.setItem(`${username}`,`${mytoDoList}`)
         alert('회원가입이 완료되었습니다!')
         loginform.style.display="none";
         todoListform.style.display="block"
         todoListformMember.innerHTML=`${username}님의 할일`
-        
     }
+
 
 }
 
@@ -98,19 +102,22 @@ const toDoListAddHandler=(e)=>{
     deletespan.innerText='delete'
     li.setAttribute('class','list')
     li.innerText=TodoValue
-    
     li.appendChild(checkspan)
     li.appendChild(deletespan)    
-    
     todoContentList.appendChild(li)
     
+    e.target.children[0].value=""
+    // 로컬스토리지에 toDo 저장 
+    savetoDoList(TodoValue)
+
     alert('할일이 추가 되었습니다.')
 }
 
 
 // 6.localstorage에 데이터를 저장하기위해 사용되는 함수
-const savetoDoList=()=>{
-
+const savetoDoList=(TodoValue)=>{
+    mytoDoList.push(TodoValue)
+    localStorage.setItem(MY_LOCALKEY,JSON.stringify(mytoDoList))
 }
 
 // 7. localstorage에 있는 데이터를 가져오기 위한 함수
@@ -120,7 +127,7 @@ const loadtoDoList=()=>{
 
 // 8.localstorage에 있는 데이터를 삭제하기 위한 함수
 const deletetoDOList=()=>{
-    
+
 }
 
 todoListAdd.addEventListener('submit',toDoListAddHandler)
