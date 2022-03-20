@@ -54,3 +54,7 @@ const loginbtnClick=(e)=>{
     }
 
 }
+
+
+todoContentList.addEventListener('click',todoListHandler)
+loginform.addEventListener('submit',loginbtnClick)
