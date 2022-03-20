@@ -121,8 +121,9 @@ const savetoDoList=(TodoValue)=>{
 
 // 7. localstorage에 있는 데이터를 가져오기 위한 함수
 const loadtoDoList=()=>{
-    
     mytoDoList=JSON.parse(localStorage.getItem(`${MY_LOCALKEY}`)) 
+    mytoDoList.map((e)=>toDoListAddHandler(e)) 
+    // 로컬스토리지에있는값을 todoList에 뿌려줌 
 
 }
 
