@@ -103,8 +103,23 @@ const toDoListAddHandler=(e)=>{
     li.appendChild(deletespan)    
     
     todoContentList.appendChild(li)
-
+    
     alert('할일이 추가 되었습니다.')
+}
+
+
+// 6.localstorage에 데이터를 저장하기위해 사용되는 함수
+const savetoDoList=()=>{
+
+}
+
+// 7. localstorage에 있는 데이터를 가져오기 위한 함수
+const loadtoDoList=()=>{
+
+}
+
+// 8.localstorage에 있는 데이터를 삭제하기 위한 함수
+const deletetoDOList=()=>{
     
 }
 
