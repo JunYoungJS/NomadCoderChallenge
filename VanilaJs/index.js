@@ -104,7 +104,7 @@ const toDoListSubmitHandler=(e)=>{
     toDoListViewHandler(TodoValueObj)
     alert('할일이 추가 되었습니다.')
 }
-// 5.1 toDoList를 화면에 뿌려주는 함수 
+// 5.1 toDoList를 화면에 뿌려주는 함수  (로컬 스토리지에 저장된 객체의 속성값으로 렌더링 함)
 const toDoListViewHandler=(TodoNode)=>{
     const li=document.createElement('li')
     const checkspan=document.createElement('span')
