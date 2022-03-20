@@ -34,3 +34,17 @@
 .remove-list {
   float: right;
 }
+
+#checked {
+  color: green;
+}
+#unchecked {
+  color: black;
+}
+
+#todo-content .list.unchecked {
+  text-decoration: none;
+}
+#todo-content .list.checked {
+  text-decoration: line-through;
+}

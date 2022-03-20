@@ -64,23 +64,26 @@ const toDoListCheckRemoveHandler=(e)=>{
     const todoNodevalue=e.target.parentNode
     const checkNodevalue=e.target
 
-    
     // 4.2  toDOList삭제기능 
     if(checkNodevalue.innerText==='delete'){
+        mytoDoList=deletetoDOList(todoNodevalue)
+        saveLocalStorage()
         todoNodevalue.remove()
         alert('삭제되었습니다.')
     }
     // 4.1 toDOList 체크기능 
     else if(checkNodevalue.innerText==='check_circle'){
-        if(checkNodevalue.style.color=='green'){
-            checkNodevalue.style.color='black'
-            todoNodevalue.style.textDecoration='none'
-        
+        if(checkNodevalue.id=='unchecked'){
+            checkNodevalue.id='checked'
+            todoNodevalue.className='list checked'
+            checktoDoList(todoNodevalue,'checked')
         }
-        else{
-        checkNodevalue.style.color='green'
-        todoNodevalue.style.textDecoration='line-through'
-        }
+         else{
+            checkNodevalue.id='unchecked'
+            todoNodevalue.className='list unchecked'  
+            checktoDoList(todoNodevalue,'unchecked')
+         }
+            
     }
 }
 
@@ -90,28 +93,30 @@ const toDoListSubmitHandler=(e)=>{
     e.preventDefault();
     
     const TodoValue=e.target.children[0].value
-    toDoListViewHandler(TodoValue)
     e.target.children[0].value=""
  
     const TodoValueObj={
         id:Date.now(),
         text:TodoValue,
-        check:false
+        check:'unchecked'
     }
     savetoDoList(TodoValueObj)
+    toDoListViewHandler(TodoValueObj)
     alert('할일이 추가 되었습니다.')
 }
 // 5.1 toDoList를 화면에 뿌려주는 함수 
-const toDoListViewHandler=(TodoValue)=>{
+const toDoListViewHandler=(TodoNode)=>{
     const li=document.createElement('li')
     const checkspan=document.createElement('span')
     const deletespan=document.createElement('span')
     checkspan.setAttribute('class','material-icons-outlined check-list')
     checkspan.innerText='check_circle'
+    checkspan.id=TodoNode.check
     deletespan.setAttribute('class','material-icons-outlined remove-list')
     deletespan.innerText='delete'
-    li.setAttribute('class','list')
-    li.innerText=TodoValue
+    li.id=TodoNode.id
+    li.className=`list ${TodoNode.check}`
+    li.innerText=TodoNode.text
     li.appendChild(checkspan)
     li.appendChild(deletespan)    
     todoContentList.appendChild(li)
@@ -120,7 +125,7 @@ const toDoListViewHandler=(TodoValue)=>{
 // 6.해당 유저의 toDoList를  저장하기위해 사용되는 함수
 const savetoDoList=(TodoObjValue)=>{
     mytoDoList.push(TodoObjValue)
-    localStorage.setItem(MY_LOCALKEY,JSON.stringify(mytoDoList))
+    saveLocalStorage()
 }
 
 // 7. 해당 유저의 toDoList 데이터를 가져오기 위한 함수
@@ -130,9 +135,25 @@ const loadtoDoList=()=>{
     // 로컬스토리지에있는값을 todoList에 뿌려줌 
 }
 
-// 8.localstorage에 있는 데이터를 삭제하기 위한 함수
-const deletetoDOList=()=>{
+// 8. TOdoList에 있는 특정 데이터를 삭제하기 위한 함수
+const deletetoDOList=(TodoNode)=>{
+    return mytoDoList.filter((e)=>e.id!=TodoNode.id)
+}
+// 9. localStorage값 변경 
+const saveLocalStorage=()=>{
+    localStorage.setItem(MY_LOCALKEY,JSON.stringify(mytoDoList))
+}
 
+
+// 10. check 기능 구현  (선택된 노드의 id값을 가져와서 해당 노드의 속성을 바꿔줌 )
+const checktoDoList=(TodoNode,prop)=>{
+    for(let i=0;i<mytoDoList.length;i++){
+        if(mytoDoList[i].id==TodoNode.id){
+            mytoDoList[i].check=prop
+            break
+        }
+    }
+    saveLocalStorage()
 }
 
 todoListAdd.addEventListener('submit',toDoListSubmitHandler)
